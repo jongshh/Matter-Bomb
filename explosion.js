@@ -1,11 +1,12 @@
-class explosion{
-  constructor(position){
+class Explosion{
+  constructor(position,systemlife){
       this.acceleration = createVector();
-      this.velocity = createVector(random(-5,5),random(-5,5));
+      this.velocity = createVector(random(0,0),random(0,0));
       this.position = position.copy();
       this.lifespan = 200;
-      this.ballrad = 50
-      this.fc = random(50,250);
+      this.ballrad = 3 + (systemlife/500);
+      this.systemlife = systemlife/500;
+      this.fc = systemlife;
   }
   
 
@@ -17,14 +18,24 @@ class explosion{
   update(){
       this.velocity.add(this.acceleration);
       this.position.add(this.velocity);
-      this.lifespan -= 2;
-    
+      this.lifespan -= 1;
+      this.acceleration.add(random(-this.systemlife, this.systemlife), random(-this.systemlife, this.systemlife));
+      this.velocity.limit(1);
+      
+  }
+
+  applyForce(aForce){
+    this.acceleration.add(aForce);
   }
   
   display(){
-      stroke(200, this.lifespan);
-      strokeWeight(2);
-      fill(this.fc,50,50, this.lifespan);
-      ellipse(this.position.x, this.position.y, this.ballrad*2, this.ballrad*2);
+      stroke(this.fc,25,25,this.lifespan);
+      strokeWeight(3);
+      fill(this.fc,25,25, this.lifespan);
+      ellipse(this.position.x, this.position.y, this.ballrad*(random(-1,1)), this.ballrad*(random(-1,1)));
   }  
+
+  isDead(){
+    return this.lifespan < 0;
+  }
 }

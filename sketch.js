@@ -10,8 +10,17 @@ function setup() {
   createCanvas(1920, 1080);
 }
 
+function mouseClicked(){
+  mpos2 = createVector(mouseX, mouseY);
+  let s = new ParticleSystem(mpos2);
+  systems.push(s);
+}
+
+
 function draw() {
   background(51);
+
+  // Gravity Control
 
   if (keyIsDown(UP_ARROW)){
     GControl -= 0.01;
@@ -22,29 +31,40 @@ function draw() {
 
   gravity = createVector(0, GControl);
 
-
+  //Particle System
 
   for (let s of systems){
     s.addParticle();
     s.run();
-    s.add(gravity)
-    
-  if (mouseIsPressed){
-  
-  let wind = createVector(0, 0.1);
-  s.add(wind);
-    }
-        if (s.life()) {
+    s.add(gravity);
+
+  if (s.life()) {
       systems.splice(s, 1);
-      let exp = new explosion(mpos2);
+      let exp = new ExplosionSystem(mpos2);
       explosions.push(exp);
   }
+
+  if (mouseIsPressed){
+  
+    let wind = createVector(random(-5,5), 0);
+    s.add(wind);
+      }
+
   }
+
+  //Explosion System Execution
+
   for(let exp of explosions){
+  exp.addParticle();
   exp.run();
-  exp.update();
-  exp.display();
+  exp.add(gravity);
+
+  if (exp.life()) {
+    explosions.splice(exp, 1);
   }
+  }
+
+  //Text Description
 
   push();
   noStroke();
@@ -58,11 +78,6 @@ function draw() {
 
 }
 
-function mouseClicked(){
-  mpos2 = createVector(mouseX, mouseY);
-  let s = new ParticleSystem(mpos2);
-  systems.push(s);
-}
 
 
 

@@ -30,7 +30,7 @@ class Particle{
   }
   
   display(){
-      stroke(200, this.lifespan);
+      stroke(this.fc,10,10, this.lifespan);
       strokeWeight(2);
       fill(this.fc,50,50, this.lifespan);
       ellipse(this.position.x, this.position.y, this.ballrad*2, this.ballrad*2);
