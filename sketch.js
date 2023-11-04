@@ -6,7 +6,7 @@ let mpos2;
 
 
 function setup() {
-  createCanvas(720, 400);
+  createCanvas(1920, 1080);
 
   gravity = createVector(0, 0.05);
 }
