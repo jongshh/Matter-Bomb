@@ -7,6 +7,7 @@ class Particle{
       this.ballrad = 6*fadj/500;
       this.fc = fadj/2;
       this.adjspeed = (0,pspeed/10000);
+      this.ParticleMag = fadj;
   }
   
 
@@ -25,7 +26,7 @@ class Particle{
       this.position.add(this.velocity);
       this.lifespan -= 2;
       this.acceleration.add(random(-this.adjspeed, this.adjspeed), random(-this.adjspeed, this.adjspeed));
-    
+      this.velocity.setMag(this.ParticleMag/50);
   }
   
   display(){
@@ -39,22 +40,22 @@ class Particle{
       if(this.position.y >= height - this.ballrad){
         this.velocity.y *=-1;
         this.position.y = height - this.ballrad;
-        this.fc +=1;
+        this.fc -=1;
       }
     if(this.position.y <= 0 + this.ballrad){
         this.velocity.y *=-1;
         this.position.y = 0 + this.ballrad;
-        this.fc +=1;
+        this.fc -=1;
       }
     if(this.position.x >= width - this.ballrad){
         this.velocity.x *=-1;
         this.position.x = width - this.ballrad;
-        this.fc +=1;
+        this.fc -=1;
       }
     if(this.position.x <= 0 + this.ballrad){
         this.velocity.x *=-1;
         this.position.x = 0 + this.ballrad;
-        this.fc +=1;
+        this.fc -=1;
       }
     
   }

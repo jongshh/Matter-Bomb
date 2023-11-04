@@ -1,15 +1,15 @@
-class ParticleSystem {
+class ExplosionSystem {
   constructor(position) {
     this.origin = position.copy();
     this.particles = [];
-    this.systemlife = 1500;
+    this.systemlife = 0;
   }
   
   addParticle(){
     if (frameCount%5 == 0){
   this.particles.push(new Particle(this.origin,this.systemlife/2,this.systemlife));
     }
-  this.systemlife -=1;
+  this.systemlife +=1;
   }
   
   add(aForce) {
@@ -30,6 +30,6 @@ class ParticleSystem {
   }
   
   life(){
-    return this.systemlife < 0;
+    return this.systemlife > 1500;
   }
 }
